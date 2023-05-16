@@ -9,6 +9,10 @@ public class Enemy : MonoBehaviour
     private Animator anim;
     public float radius;
 
+    public Transform[] waypoints;
+    int wayPointIndex;
+    Vector3 nextWaypoint;
+    
     [Range(0, 360)]
     public float angle;
     public GameObject player;
@@ -26,17 +30,41 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log(Vector3.Distance(transform.position, nextWaypoint));
         if (canSeePlayer)
         {
             anim.SetBool("persuit", true);
             enemyAgent.SetDestination(player.transform.position);
         }
+        else if(Vector3.Distance(transform.position, nextWaypoint) < 2)
+        {
+            anim.SetBool("persuit", false);
+            anim.SetBool("patrol", true);
+
+            advanceToNextWaypoint();
+            updateDestination();
+        }
         else
         {
             anim.SetBool("persuit", false);
-
+            anim.SetBool("patrol", true);
+            updateDestination();
         }
+        
         //Debug.Log(canSeePlayer);
+    }
+    void updateDestination()
+    {
+        nextWaypoint = waypoints[wayPointIndex].position;
+        enemyAgent.SetDestination(nextWaypoint);
+    }
+    void advanceToNextWaypoint()
+    { 
+        wayPointIndex++;
+        if(wayPointIndex == waypoints.Length)
+        {
+            wayPointIndex = 0;
+        }
     }
     private IEnumerator FOVRoutine()
     {
