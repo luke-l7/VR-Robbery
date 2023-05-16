@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     private NavMeshAgent enemyAgent;
-
+    private Animator anim;
     public float radius;
 
     [Range(0, 360)]
@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        anim = GetComponent<Animator>();
         enemyAgent = GetComponent<NavMeshAgent>();
         StartCoroutine(FOVRoutine());
     }
@@ -27,7 +28,13 @@ public class Enemy : MonoBehaviour
     {
         if (canSeePlayer)
         {
+            anim.SetBool("persuit", true);
             enemyAgent.SetDestination(player.transform.position);
+        }
+        else
+        {
+            anim.SetBool("persuit", false);
+
         }
         //Debug.Log(canSeePlayer);
     }

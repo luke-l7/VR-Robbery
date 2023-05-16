@@ -26987,12 +26987,20 @@ PrefabInstance:
       propertyPath: Distance
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 809891315, guid: f81c4ebda6462044a9be4b664b2f379c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 809891316, guid: f81c4ebda6462044a9be4b664b2f379c, type: 3}
       propertyPath: m_RenderingPath
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1770727773, guid: f81c4ebda6462044a9be4b664b2f379c, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1770727774, guid: f81c4ebda6462044a9be4b664b2f379c, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1770727775, guid: f81c4ebda6462044a9be4b664b2f379c, type: 3}
