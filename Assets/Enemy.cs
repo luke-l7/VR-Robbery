@@ -12,7 +12,9 @@ public class Enemy : MonoBehaviour
     public Transform[] waypoints;
     int wayPointIndex;
     Vector3 nextWaypoint;
-    
+    public GameObject monetorWaypoint;
+    bool shouldRest = true;
+
     [Range(0, 360)]
     public float angle;
     public GameObject player;
@@ -38,11 +40,24 @@ public class Enemy : MonoBehaviour
         }
         else if(Vector3.Distance(transform.position, nextWaypoint) < 2)
         {
-            anim.SetBool("persuit", false);
-            anim.SetBool("patrol", true);
+            if (waypoints[wayPointIndex] == monetorWaypoint.transform && shouldRest)
+            {
+                anim.SetBool("patrol", false);
+                anim.SetBool("rest", true);
+                //stop for 3 seconds, cant see
+                canSeePlayer = false;
+                StartCoroutine(monitorRest());
+            }
+            else
+            {
+                
+                anim.SetBool("persuit", false);
+                anim.SetBool("patrol", true);
+                anim.SetBool("rest", false);
 
-            advanceToNextWaypoint();
-            updateDestination();
+                advanceToNextWaypoint();
+                updateDestination();
+            }
         }
         else
         {
@@ -64,7 +79,14 @@ public class Enemy : MonoBehaviour
         if(wayPointIndex == waypoints.Length)
         {
             wayPointIndex = 0;
+            shouldRest= true;
         }
+    }
+    private IEnumerator monitorRest()
+    {
+        yield return new WaitForSeconds(5);
+        shouldRest = false;
+
     }
     private IEnumerator FOVRoutine()
     {
