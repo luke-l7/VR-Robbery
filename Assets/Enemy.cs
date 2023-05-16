@@ -18,14 +18,17 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //enemyAgent= GetComponent<NavMeshAgent>();
+        enemyAgent = GetComponent<NavMeshAgent>();
         StartCoroutine(FOVRoutine());
     }
 
     // Update is called once per frame
     void Update()
     {
-        //enemyAgent.SetDestination(player.transform.position);
+        if (canSeePlayer)
+        {
+            enemyAgent.SetDestination(player.transform.position);
+        }
         //Debug.Log(canSeePlayer);
     }
     private IEnumerator FOVRoutine()
