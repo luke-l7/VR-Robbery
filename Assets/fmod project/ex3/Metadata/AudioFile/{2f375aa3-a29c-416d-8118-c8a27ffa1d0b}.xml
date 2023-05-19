@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{2f375aa3-a29c-416d-8118-c8a27ffa1d0b}">
+		<property name="assetPath">
+			<value>music/Stressed.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>24</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{6a64a059-4a56-4842-8cb8-9db7480c5fdc}</destination>
+		</relationship>
+	</object>
+</objects>
