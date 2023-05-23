@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.EventSystems.EventTrigger;
+
 public class Enemy : MonoBehaviour
 {
     private NavMeshAgent enemyAgent;
@@ -19,11 +21,15 @@ public class Enemy : MonoBehaviour
     public float angle;
     public GameObject player;
     public bool canSeePlayer;
+    public float PlayerEnemyDistance;
+
     public LayerMask targetMask;
     public LayerMask obstructionMask;
     // Start is called before the first frame update
     void Start()
     {
+        PlayerEnemyDistance = Vector3.Distance(player.transform.position, transform.position);
+
         anim = GetComponent<Animator>();
         enemyAgent = GetComponent<NavMeshAgent>();
         StartCoroutine(FOVRoutine());
@@ -101,6 +107,7 @@ public class Enemy : MonoBehaviour
 
     private void FieldOfViewCheck()
     {
+        PlayerEnemyDistance = Vector3.Distance(player.transform.position, transform.position);
         Collider[] rangeChecks = Physics.OverlapSphere(transform.position, radius, targetMask);
         if(rangeChecks.Length != 0 ) {
             //only the player is in the array

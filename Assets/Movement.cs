@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // These videos take long to make so I hope this helps you out and if you want to help me out you can by leaving a like and subscribe, thanks!
 
 public class Movement : MonoBehaviour
 {
+    public bool hasObject;
     [SerializeField] Transform playerCamera;
     [SerializeField][Range(0.0f, 0.5f)] float mouseSmoothTime = 0.03f;
     [SerializeField] bool cursorLock = true;
@@ -31,6 +33,7 @@ public class Movement : MonoBehaviour
 
     void Start()
     {
+        hasObject = false;
         controller = GetComponent<CharacterController>();
 
         if (cursorLock)
@@ -84,6 +87,13 @@ public class Movement : MonoBehaviour
         if (isGrounded! && controller.velocity.y < -1f)
         {
             velocityY = -8f;
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (hasObject && other.CompareTag("Finish"))
+        {
+            SceneManager.LoadScene(2);
         }
     }
 }
