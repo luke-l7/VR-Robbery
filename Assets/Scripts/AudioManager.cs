@@ -64,7 +64,7 @@ public class AudioManager : MonoBehaviour
 
 
         }
-        else if (enemy.GetComponent<Enemy>().PlayerEnemyDistance < 3f)
+        else if (enemy.GetComponent<Enemy>().PlayerEnemyDistance < 2f)
         {
             currentMusic.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             gameOverSound.start();

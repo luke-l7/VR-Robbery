@@ -107,18 +107,29 @@ public class Enemy : MonoBehaviour
 
     private void FieldOfViewCheck()
     {
+        
         PlayerEnemyDistance = Vector3.Distance(player.transform.position, transform.position);
+            //Debug.Log(PlayerEnemyDistance);
         Collider[] rangeChecks = Physics.OverlapSphere(transform.position, radius, targetMask);
-        if(rangeChecks.Length != 0 ) {
+        //can hear player
+        if (Vector3.Distance(player.transform.position, transform.position) < radius - 2)
+        {
+            Debug.Log("i see you");
+            canSeePlayer = true;
+            this.transform.LookAt(player.transform.position);
+        }
+        else if (rangeChecks.Length != 0 ) {
             //only the player is in the array
             Transform target = rangeChecks[0].transform;
             Vector3 dirToTarget = (target.position - transform.position).normalized;
+            float distanceToTarget = Vector3.Distance(transform.position, player.transform.position);
+            
             if (Vector3.Angle(transform.forward, dirToTarget) < angle / 2)
             {
-                float distanceToTarget = Vector3.Distance(transform.position, player.transform.position);
-                //can see player
+                //can see player 
                 if(!Physics.Raycast(transform.position, dirToTarget, distanceToTarget, obstructionMask))
                 {
+                    Debug.Log(canSeePlayer);
                     canSeePlayer = true;
                 }
                 else
@@ -127,9 +138,11 @@ public class Enemy : MonoBehaviour
 
                 }
             }
+            
             else
                 canSeePlayer = false;
         }
+        
         else if(canSeePlayer) 
         {
             canSeePlayer= false;
