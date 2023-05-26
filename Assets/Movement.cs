@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,7 +13,9 @@ public class Movement : MonoBehaviour
     
     public Area area = Area.start;
     public bool hasObject;
-
+    public GameObject skeleton;
+    public Vector2 targetDir;
+    Animator anim;
     [SerializeField] Transform playerCamera;
     [SerializeField][Range(0.0f, 0.5f)] float mouseSmoothTime = 0.03f;
     [SerializeField] bool cursorLock = true;
@@ -22,6 +25,7 @@ public class Movement : MonoBehaviour
     [SerializeField] float gravity = -30f;
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask ground;
+
     public float jumpHeight = 6f;
     float velocityY;
     bool isGrounded;
@@ -37,6 +41,7 @@ public class Movement : MonoBehaviour
 
     void Start()
     {
+        anim = skeleton.GetComponent<Animator>();
         hasObject = false;
         controller = GetComponent<CharacterController>();
 
@@ -72,15 +77,30 @@ public class Movement : MonoBehaviour
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, 0.2f, ground);
 
-        Vector2 targetDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        //Vector2 targetDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        targetDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         targetDir.Normalize();
+        //if (targetDir == Vector2.zero)
+        //{
+        //    // No movement
+        //    //anim.SetBool("shouldWalk", false);
+        //    anim.SetFloat("Speed", 0);
+
+        //}
+        //else
+        //{
+        //    anim.SetFloat("Speed", 1);
+
+        //    //anim.SetBool("shouldWalk", true);
+
+        //}
 
         currentDir = Vector2.SmoothDamp(currentDir, targetDir, ref currentDirVelocity, moveSmoothTime);
 
         velocityY += gravity * 2f * Time.deltaTime;
 
         Vector3 velocity = (transform.forward * currentDir.y + transform.right * currentDir.x) * Speed + Vector3.up * velocityY;
-
+        //Debug.Log(velocity);
         controller.Move(velocity * Time.deltaTime);
 
         if (isGrounded && Input.GetButtonDown("Jump"))

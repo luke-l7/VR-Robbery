@@ -12,6 +12,8 @@ enum EnemyState
 }
 public class AudioManager : MonoBehaviour
 {
+    public GameObject skeleton;
+    Animator anim;
     public GameObject enemy;
     FMOD.Studio.EventInstance gameCalmAmbience;
     FMOD.Studio.EventInstance chaseMusic;
@@ -25,6 +27,7 @@ public class AudioManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        anim= skeleton.GetComponent<Animator>();
         gameCalmAmbience = FMODUnity.RuntimeManager.CreateInstance("event:/ambience 2d");
         chaseMusic = FMODUnity.RuntimeManager.CreateInstance("event:/chase");
         stressedMusic = FMODUnity.RuntimeManager.CreateInstance("event:/Stressed");
@@ -44,6 +47,8 @@ public class AudioManager : MonoBehaviour
             currentMusic.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             currentMusic = shuffledMusic[1];
             currentMusic.start();
+            //anim.SetBool("shouldRun", true);
+            anim.SetFloat("Speed", 5);
 
         }
         else if(enemyState != EnemyState.closeBy && !enemy.GetComponent<Enemy>().canSeePlayer && enemy.GetComponent<Enemy>().PlayerEnemyDistance < 18f)
@@ -52,6 +57,16 @@ public class AudioManager : MonoBehaviour
             currentMusic.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             currentMusic = shuffledMusic[2];
             currentMusic.start();
+            //anim.SetBool("shouldRun", false);
+            if (GetComponent<Movement>().targetDir == Vector2.zero)
+            {
+                anim.SetFloat("speed2", 0);
+
+            }
+            else
+            {
+                anim.SetFloat("speed2", 2);
+            }
 
 
         }
@@ -61,6 +76,16 @@ public class AudioManager : MonoBehaviour
             currentMusic.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             currentMusic = shuffledMusic[0];
             currentMusic.start();
+            //anim.SetBool("shouldRun", false);
+            if (GetComponent<Movement>().targetDir == Vector2.zero)
+            {
+                anim.SetFloat("speed2", 0);
+
+            }
+            else
+            {
+                anim.SetFloat("speed2", 2);
+            }
 
 
         }
