@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// These videos take long to make so I hope this helps you out and if you want to help me out you can by leaving a like and subscribe, thanks!
-
+public enum Area
+{
+    start, hallway, enemyArea, itemArea
+}
 public class Movement : MonoBehaviour
 {
+    
+    public Area area = Area.start;
     public bool hasObject;
+
     [SerializeField] Transform playerCamera;
     [SerializeField][Range(0.0f, 0.5f)] float mouseSmoothTime = 0.03f;
     [SerializeField] bool cursorLock = true;
@@ -17,7 +22,6 @@ public class Movement : MonoBehaviour
     [SerializeField] float gravity = -30f;
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask ground;
-
     public float jumpHeight = 6f;
     float velocityY;
     bool isGrounded;
@@ -94,6 +98,14 @@ public class Movement : MonoBehaviour
         if (hasObject && other.CompareTag("Finish"))
         {
             SceneManager.LoadScene(2);
+        }
+        else if (other.CompareTag("hallwayDoor"))
+        {
+            this.area = Area.hallway;
+        }
+        else if (other.CompareTag("enemyAreaDoor"))
+        {
+            this.area = Area.enemyArea;
         }
     }
 }
