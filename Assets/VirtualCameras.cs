@@ -44,7 +44,7 @@ public class VirtualCameras : MonoBehaviour
     }
     IEnumerator WaitForSeconds()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(4f);
         outsideCamera.Priority = 0;
         followCamera.Priority = 1;
     }
