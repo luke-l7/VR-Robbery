@@ -4,7 +4,7 @@ using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
 using UnityEngine.SceneManagement;
-enum EnemyState
+public enum EnemyState
 {
     unaware,
     closeBy,
@@ -12,7 +12,7 @@ enum EnemyState
 }
 public class AudioManager : MonoBehaviour
 {
-    public GameObject skeleton;
+    //public GameObject skeleton;
     Animator anim;
     public GameObject enemy;
     FMOD.Studio.EventInstance gameCalmAmbience;
@@ -22,12 +22,12 @@ public class AudioManager : MonoBehaviour
     FMOD.Studio.EventInstance[] shuffledMusic;
     EventInstance currentMusic;
 
-    EnemyState enemyState;
+    public EnemyState enemyState;
 
     // Start is called before the first frame update
     void Start()
     {
-        anim= skeleton.GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
         gameCalmAmbience = FMODUnity.RuntimeManager.CreateInstance("event:/ambience 2d");
         chaseMusic = FMODUnity.RuntimeManager.CreateInstance("event:/chase");
         stressedMusic = FMODUnity.RuntimeManager.CreateInstance("event:/Stressed");
@@ -42,13 +42,25 @@ public class AudioManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(enemy.GetComponent<Enemy>().canSeePlayer && enemyState != EnemyState.chase){
+        //if (Movement.moving)
+        //{
+        //    //anim.SetFloat("speed", 0);
+        //    anim.SetBool("shouldWalk", true);
+
+        //}
+        //else
+        //{
+        //    //anim.SetFloat("speed", 2);
+        //    anim.SetBool("shouldWalk", false);
+
+        //}
+        if (enemy.GetComponent<Enemy>().canSeePlayer && enemyState != EnemyState.chase){
             enemyState = EnemyState.chase;
             currentMusic.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             currentMusic = shuffledMusic[1];
             currentMusic.start();
-            //anim.SetBool("shouldRun", true);
-            anim.SetFloat("Speed", 5);
+            //anim.SetBool("shouldrun", true);
+            //anim.SetFloat("speed", 5);
 
         }
         else if(enemyState != EnemyState.closeBy && !enemy.GetComponent<Enemy>().canSeePlayer && enemy.GetComponent<Enemy>().PlayerEnemyDistance < 18f)
@@ -58,15 +70,18 @@ public class AudioManager : MonoBehaviour
             currentMusic = shuffledMusic[2];
             currentMusic.start();
             //anim.SetBool("shouldRun", false);
-            if (GetComponent<Movement>().targetDir == Vector2.zero)
-            {
-                anim.SetFloat("speed2", 0);
+            //if (Movement.moving)
+            //{
+            //    //anim.SetFloat("speed", 0);
+            //    anim.SetBool("shouldWalk", true);
 
-            }
-            else
-            {
-                anim.SetFloat("speed2", 2);
-            }
+            //}
+            //else
+            //{
+            //    //anim.SetFloat("speed", 2);
+            //    anim.SetBool("shouldWalk", false);
+
+            //}
 
 
         }
@@ -76,16 +91,18 @@ public class AudioManager : MonoBehaviour
             currentMusic.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             currentMusic = shuffledMusic[0];
             currentMusic.start();
-            //anim.SetBool("shouldRun", false);
-            if (GetComponent<Movement>().targetDir == Vector2.zero)
-            {
-                anim.SetFloat("speed2", 0);
+            //if (Movement.moving)
+            //{
+            //    //anim.SetFloat("speed", 0);
+            //    anim.SetBool("shouldWalk", true);
 
-            }
-            else
-            {
-                anim.SetFloat("speed2", 2);
-            }
+            //}
+            //else
+            //{
+            //    //anim.SetFloat("speed", 2);
+            //    anim.SetBool("shouldWalk", false);
+
+            //}
 
 
         }

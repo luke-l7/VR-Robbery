@@ -13,8 +13,8 @@ public class Movement : MonoBehaviour
     
     public Area area = Area.start;
     public bool hasObject;
-    public GameObject skeleton;
-    public Vector2 targetDir;
+    //public GameObject skeleton;
+    public static bool moving = false;
     Animator anim;
     [SerializeField] Transform playerCamera;
     [SerializeField][Range(0.0f, 0.5f)] float mouseSmoothTime = 0.03f;
@@ -41,7 +41,8 @@ public class Movement : MonoBehaviour
 
     void Start()
     {
-        anim = skeleton.GetComponent<Animator>();
+        //anim = skeleton.GetComponent<Animator>();
+        //anim= GetComponent<Animator>();
         hasObject = false;
         controller = GetComponent<CharacterController>();
 
@@ -78,22 +79,22 @@ public class Movement : MonoBehaviour
         isGrounded = Physics.CheckSphere(groundCheck.position, 0.2f, ground);
 
         //Vector2 targetDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        targetDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        Vector2 targetDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         targetDir.Normalize();
-        //if (targetDir == Vector2.zero)
-        //{
-        //    // No movement
-        //    //anim.SetBool("shouldWalk", false);
-        //    anim.SetFloat("Speed", 0);
+        if (targetDir == Vector2.zero)
+        {
+            // No movement
+            moving= false;
 
-        //}
-        //else
-        //{
-        //    anim.SetFloat("Speed", 1);
+        }
+        else
+        {
+            moving = true;
 
-        //    //anim.SetBool("shouldWalk", true);
 
-        //}
+            //anim.SetBool("shouldWalk", true);
+
+        }
 
         currentDir = Vector2.SmoothDamp(currentDir, targetDir, ref currentDirVelocity, moveSmoothTime);
 
