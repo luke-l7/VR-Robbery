@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{1e088862-79b5-4670-ab43-1144612a5d15}">
+		<property name="name">
+			<value>gotAway</value>
+		</property>
+		<relationship name="folder">
+			<destination>{2c736f2e-75e4-434f-9f4a-a30e7da2ce5c}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{ee2aafa1-035c-476f-baf7-d9feb5230832}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{ee2aafa1-035c-476f-baf7-d9feb5230832}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

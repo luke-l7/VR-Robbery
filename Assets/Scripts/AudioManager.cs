@@ -49,7 +49,8 @@ public class AudioManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+        Debug.Log(enemy.GetComponent<Enemy>().PlayerEnemyDistance);
+       //enemy sees player
         if (enemy.GetComponent<Enemy>().canSeePlayer && enemyState != EnemyState.chase){
             music.setParameterByName("Guard Chase", 1);
 
@@ -60,7 +61,8 @@ public class AudioManager : MonoBehaviour
 
 
         }
-        else if(enemyState != EnemyState.closeBy && !enemy.GetComponent<Enemy>().canSeePlayer && enemy.GetComponent<Enemy>().PlayerEnemyDistance < 18f)
+        //player in enemy vicinity 
+        else if (enemyState != EnemyState.closeBy && !enemy.GetComponent<Enemy>().canSeePlayer && enemy.GetComponent<Enemy>().PlayerEnemyDistance < 18f)
         {
             music.setParameterByName("NEAR ITEM", 1);
             //enemyState = EnemyState.closeBy;
@@ -70,8 +72,12 @@ public class AudioManager : MonoBehaviour
             
 
         }
-        else if(enemyState != EnemyState.unaware && !enemy.GetComponent<Enemy>().canSeePlayer && enemy.GetComponent<Enemy>().PlayerEnemyDistance > 18f)
+        // enemy saw player but now out of range
+        else if (enemyState != EnemyState.closeBy && !enemy.GetComponent<Enemy>().canSeePlayer && enemy.GetComponent<Enemy>().PlayerEnemyDistance < 18f)
         {
+            music.setParameterByName("NEAR ITEM", 0);
+            music.setParameterByName("Guard Chase", 0);
+            music.setParameterByName("gotAway", 1);
             //enemyState = EnemyState.unaware;
             //currentMusic.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             //currentMusic = shuffledMusic[0];
@@ -80,10 +86,27 @@ public class AudioManager : MonoBehaviour
 
 
         }
-        else if (enemy.GetComponent<Enemy>().PlayerEnemyDistance < 2f)
+        
+        //else if(enemyState != EnemyState.unaware && !enemy.GetComponent<Enemy>().canSeePlayer && enemy.GetComponent<Enemy>().PlayerEnemyDistance > 18f)
+        //{
+        //    music.setParameterByName("NEAR ITEM", 0);
+        //    music.setParameterByName("Guard Chase", 0);
+        //    music.setParameterByName("gotAway", 1);
+        //    //enemyState = EnemyState.unaware;
+        //    //currentMusic.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        //    //currentMusic = shuffledMusic[0];
+        //    //currentMusic.start();
+
+
+
+        //}
+        //player got caught
+        if (enemy.GetComponent<Enemy>().PlayerEnemyDistance < 3f)
         {
-            currentMusic.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-            gameOverSound.start();
+            Debug.Log("i caught you");
+            music.setParameterByName("Health", 0);
+            //currentMusic.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            //gameOverSound.start();
             SceneManager.LoadScene(1);
 
 

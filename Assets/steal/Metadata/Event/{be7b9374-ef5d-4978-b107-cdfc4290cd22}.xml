@@ -114,6 +114,7 @@
 			<destination>{a15595e9-464a-46d1-90ab-ee7ea54594c8}</destination>
 			<destination>{a21818f8-a8d1-4284-a126-317e63645634}</destination>
 			<destination>{1d1a643e-5051-45c5-b9d9-483d4779fa99}</destination>
+			<destination>{67224c48-ab8b-4fd7-8cb5-4ee94d7a6fac}</destination>
 		</relationship>
 	</object>
 	<object class="ActionSheet" id="{4ef70afb-5730-4e75-9c64-8fbd62cfbb88}">
@@ -508,6 +509,29 @@
 			<destination>{acf4d5c8-b517-4555-8f00-4ee50494e643}</destination>
 		</relationship>
 	</object>
+	<object class="TransitionRegion" id="{67224c48-ab8b-4fd7-8cb5-4ee94d7a6fac}">
+		<property name="position">
+			<value>85</value>
+		</property>
+		<property name="length">
+			<value>24.000000000000011</value>
+		</property>
+		<property name="quantizationInterval">
+			<value>6</value>
+		</property>
+		<relationship name="timeline">
+			<destination>{f3caebe6-cdd7-4ee2-91d1-c11c477e655a}</destination>
+		</relationship>
+		<relationship name="markerTrack">
+			<destination>{9a350bbd-aa1f-46ca-9cfd-d476e029f8f8}</destination>
+		</relationship>
+		<relationship name="destination">
+			<destination>{a881d0db-eed4-4580-9eb7-c64aad8f50ef}</destination>
+		</relationship>
+		<relationship name="triggerConditions">
+			<destination>{9ccf426d-909c-4d45-96db-7528f76628ff}</destination>
+		</relationship>
+	</object>
 	<object class="MixerBusEffectChain" id="{a834839f-b575-4938-8093-0f84c6dd3190}">
 		<relationship name="effects">
 			<destination>{6eb41a9c-c03f-47f3-a937-acfd7a581cb5}</destination>
@@ -585,6 +609,17 @@
 		</property>
 		<relationship name="parameter">
 			<destination>{2aa37bd9-afac-40d2-ae3d-b8da70d91e1b}</destination>
+		</relationship>
+	</object>
+	<object class="ParameterCondition" id="{9ccf426d-909c-4d45-96db-7528f76628ff}">
+		<property name="minimum">
+			<value>1</value>
+		</property>
+		<property name="maximum">
+			<value>1</value>
+		</property>
+		<relationship name="parameter">
+			<destination>{ee2aafa1-035c-476f-baf7-d9feb5230832}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusFader" id="{6eb41a9c-c03f-47f3-a937-acfd7a581cb5}" />

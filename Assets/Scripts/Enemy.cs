@@ -114,7 +114,7 @@ public class Enemy : MonoBehaviour
         //can hear player
         if (Vector3.Distance(player.transform.position, transform.position) < radius - 2)
         {
-            Debug.Log("i see you");
+            //Debug.Log("i see you");
             canSeePlayer = true;
             this.transform.LookAt(player.transform.position);
         }
