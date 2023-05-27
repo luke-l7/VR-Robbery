@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{bdbfbf4f-e5d4-49ee-8a1b-16961631c2c0}">
+		<property name="assetPath">
+			<value>sci_fi_door-6451.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>24</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.8959999999999999</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e89f0ffc-bc36-4827-bbd3-b74e649219e9}</destination>
+		</relationship>
+	</object>
+</objects>

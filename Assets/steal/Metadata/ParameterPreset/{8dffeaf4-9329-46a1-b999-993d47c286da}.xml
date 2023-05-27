@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{8dffeaf4-9329-46a1-b999-993d47c286da}">
+		<property name="name">
+			<value>Stealed</value>
+		</property>
+		<relationship name="folder">
+			<destination>{2c736f2e-75e4-434f-9f4a-a30e7da2ce5c}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{2aa37bd9-afac-40d2-ae3d-b8da70d91e1b}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{2aa37bd9-afac-40d2-ae3d-b8da70d91e1b}">
+		<property name="parameterType">
+			<value>2</value>
+		</property>
+		<property name="maximum">
+			<value>2</value>
+		</property>
+		<property name="enumerationLabels">
+			<value>NO</value>
+			<value>YES</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

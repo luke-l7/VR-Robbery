@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{081db16d-90d5-448d-a31d-81c5dde1a916}">
+		<property name="assetPath">
+			<value>Walk 8.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.55752834467120183</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e89f0ffc-bc36-4827-bbd3-b74e649219e9}</destination>
+		</relationship>
+	</object>
+</objects>

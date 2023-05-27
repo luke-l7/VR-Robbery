@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{fc70b3a6-82b0-4368-8ce2-1241839d3876}">
+		<property name="name">
+			<value>Distance F Guard</value>
+		</property>
+		<relationship name="folder">
+			<destination>{2c736f2e-75e4-434f-9f4a-a30e7da2ce5c}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{b827b8f7-e18c-45be-ba2d-6ecbd18b1f1e}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{b827b8f7-e18c-45be-ba2d-6ecbd18b1f1e}">
+		<property name="parameterType">
+			<value>3</value>
+		</property>
+		<property name="maximum">
+			<value>20</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="isExposedRecursively">
+			<value>false</value>
+		</property>
+	</object>
+</objects>

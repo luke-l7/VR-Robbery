@@ -39,12 +39,6 @@ public class VirtualCameras : MonoBehaviour
             followCamera.Priority = 0;
             hallwayCamera.Priority = 1;
         }
-        //else if (player.GetComponent<Movement>().area == Area.enemyArea)
-        //{
-        //    hallwayCamera.Priority = 0;
-        //    EnemyAreaCamera.Priority = 1;
-        //}
-
 
     }
     IEnumerator WaitForOutsideSeconds()

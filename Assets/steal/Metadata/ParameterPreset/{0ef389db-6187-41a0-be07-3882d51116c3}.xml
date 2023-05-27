@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{0ef389db-6187-41a0-be07-3882d51116c3}">
+		<property name="name">
+			<value>Guard Chase</value>
+		</property>
+		<relationship name="folder">
+			<destination>{2c736f2e-75e4-434f-9f4a-a30e7da2ce5c}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{7682153f-f336-4402-92f2-30973b37b8c1}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{7682153f-f336-4402-92f2-30973b37b8c1}">
+		<property name="parameterType">
+			<value>2</value>
+		</property>
+		<property name="maximum">
+			<value>2</value>
+		</property>
+		<property name="enumerationLabels">
+			<value>NO</value>
+			<value>YES</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

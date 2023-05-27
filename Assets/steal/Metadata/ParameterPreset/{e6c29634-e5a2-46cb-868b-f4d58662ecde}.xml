@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{e6c29634-e5a2-46cb-868b-f4d58662ecde}">
+		<property name="name">
+			<value>Guard Distance</value>
+		</property>
+		<relationship name="folder">
+			<destination>{2c736f2e-75e4-434f-9f4a-a30e7da2ce5c}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{bf948184-5c25-4079-9392-d0d9ecd243b8}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{bf948184-5c25-4079-9392-d0d9ecd243b8}">
+		<property name="parameterType">
+			<value>1</value>
+		</property>
+		<property name="maximum">
+			<value>11</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>
