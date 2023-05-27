@@ -40,6 +40,7 @@
 		</relationship>
 		<relationship name="banks">
 			<destination>{34d85d70-1f0f-4017-96a7-e7a38ba2e90d}</destination>
+			<destination>{c865e8b0-469a-4b79-8d34-a3bc14fa0bdf}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixer" id="{df20a682-a611-4b01-87d9-d0f9c2b75cd5}">
@@ -549,10 +550,13 @@
 	</object>
 	<object class="ParameterCondition" id="{be8fb554-1208-45db-b1ac-6685ae50bfc8}">
 		<property name="minimum">
-			<value>1</value>
+			<value>0</value>
 		</property>
 		<property name="maximum">
-			<value>1</value>
+			<value>0</value>
+		</property>
+		<property name="isInverted">
+			<value>true</value>
 		</property>
 		<relationship name="parameter">
 			<destination>{7682153f-f336-4402-92f2-30973b37b8c1}</destination>
@@ -560,10 +564,13 @@
 	</object>
 	<object class="ParameterCondition" id="{98a84535-9ea1-4166-967f-23b29aa92db9}">
 		<property name="minimum">
-			<value>1</value>
+			<value>0</value>
 		</property>
 		<property name="maximum">
-			<value>1</value>
+			<value>0</value>
+		</property>
+		<property name="isInverted">
+			<value>true</value>
 		</property>
 		<relationship name="parameter">
 			<destination>{2afbb23c-f772-485c-97f4-fa084f3aabfc}</destination>
