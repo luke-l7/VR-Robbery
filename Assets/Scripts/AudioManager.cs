@@ -53,7 +53,7 @@ public class AudioManager : MonoBehaviour
        //enemy sees player
         if (enemy.GetComponent<Enemy>().canSeePlayer && enemyState != EnemyState.chase){
             music.setParameterByName("Guard Chase", 1);
-
+            
             //enemyState = EnemyState.chase;
             //currentMusic.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             //currentMusic = shuffledMusic[1];
@@ -105,6 +105,7 @@ public class AudioManager : MonoBehaviour
         {
             Debug.Log("i caught you");
             music.setParameterByName("Health", 0);
+            
             //currentMusic.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             //gameOverSound.start();
             SceneManager.LoadScene(1);

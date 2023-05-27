@@ -4,25 +4,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using static UnityEngine.EventSystems.EventTrigger;
+using FMOD.Studio;
+using FMODUnity;
 
 public class Enemy : MonoBehaviour
 {
     private NavMeshAgent enemyAgent;
     private Animator anim;
     public float radius;
+    public string yawn;
 
+
+
+    //waypoints
     public Transform[] waypoints;
     int wayPointIndex;
     Vector3 nextWaypoint;
     public GameObject monetorWaypoint;
     bool shouldRest = true;
 
+    //raycasting
     [Range(0, 360)]
     public float angle;
     public GameObject player;
     public bool canSeePlayer;
     public float PlayerEnemyDistance;
-
     public LayerMask targetMask;
     public LayerMask obstructionMask;
     // Start is called before the first frame update
@@ -46,8 +52,10 @@ public class Enemy : MonoBehaviour
         }
         else if(Vector3.Distance(transform.position, nextWaypoint) < 2)
         {
+            //rest
             if (waypoints[wayPointIndex] == monetorWaypoint.transform && shouldRest)
             {
+                RuntimeManager.PlayOneShot(yawn);
                 anim.SetBool("patrol", false);
                 anim.SetBool("rest", true);
                 //stop for 3 seconds, cant see
