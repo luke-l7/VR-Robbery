@@ -18,6 +18,8 @@ public class AudioManager : MonoBehaviour
     public GameObject player;
 
     FMOD.Studio.EventInstance music;
+    FMOD.Studio.EventInstance heavyBreathing;
+    bool playBreath=true;
 
     public EnemyState enemyState;
 
@@ -25,13 +27,17 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         music = RuntimeManager.CreateInstance("event:/Music/Music");
-        music.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(player.transform));
-        RuntimeManager.AttachInstanceToGameObject(music, transform);
+        //music.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(player.transform));
+        //RuntimeManager.AttachInstanceToGameObject(music, transform);
 
+        startSound(music);   
+        //heavyBreathing = RuntimeManager.CreateInstance("event:/Sound FX Stressed/Breathing 1");
+        //heavyBreathing.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(player.transform));
+        //RuntimeManager.AttachInstanceToGameObject(heavyBreathing, player.transform);
         enemyState = EnemyState.unaware;
 
         //music.start();
-
+        //heavyBreathing.start();
 
     }
 
@@ -44,7 +50,7 @@ public class AudioManager : MonoBehaviour
         //enemy sees player
         if (enemy.GetComponent<Enemy>().canSeePlayer && enemyState != EnemyState.chase){
             music.setParameterByName("Guard Chase", 1);
-            
+            enemyState=EnemyState.chase;
 
 
         }
@@ -53,36 +59,40 @@ public class AudioManager : MonoBehaviour
         {
 
             //RuntimeManager.PlayOneShot("event:/Guard/Yawn", transform.position);
-
+            enemyState = EnemyState.closeBy;
             music.setParameterByName("NEAR ITEM", 1);
-
-            
+            music.setParameterByName("Guard Chase", 0);
+            music.setParameterByName("gotAway", 1);
+            Debug.Log("here");
+            //TriggerBreatingSound();
+            //heavyBreathing.start();
+            heavyBreathing = RuntimeManager.CreateInstance("event:/Sound FX Stressed/Breathing 1");
+            startSound(heavyBreathing);
 
         }
         // enemy saw player but now out of range
-        else if (enemyState != EnemyState.closeBy && !enemy.GetComponent<Enemy>().canSeePlayer && enemy.GetComponent<Enemy>().PlayerEnemyDistance < 18f)
-        {
-            music.setParameterByName("NEAR ITEM", 0);
-            music.setParameterByName("Guard Chase", 0);
-            music.setParameterByName("gotAway", 1);
-
-
-
-        }
-        
-        //else if(enemyState != EnemyState.unaware && !enemy.GetComponent<Enemy>().canSeePlayer && enemy.GetComponent<Enemy>().PlayerEnemyDistance > 18f)
+        //else if (enemyState != EnemyState.closeBy && !enemy.GetComponent<Enemy>().canSeePlayer && enemy.GetComponent<Enemy>().PlayerEnemyDistance < 18f)
         //{
         //    music.setParameterByName("NEAR ITEM", 0);
         //    music.setParameterByName("Guard Chase", 0);
         //    music.setParameterByName("gotAway", 1);
-        //    //enemyState = EnemyState.unaware;
-        //    //currentMusic.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        //    //currentMusic = shuffledMusic[0];
-        //    //currentMusic.start();
-
+        //    enemyState= EnemyState.unaware;
 
 
         //}
+
+        else if (enemyState != EnemyState.unaware && !enemy.GetComponent<Enemy>().canSeePlayer && enemy.GetComponent<Enemy>().PlayerEnemyDistance > 18f)
+        {
+            //music.setParameterByName("NEAR ITEM", 0);
+            //music.setParameterByName("Guard Chase", 0);
+            //music.setParameterByName("gotAway", 1);
+
+            //playBreath = true;
+            //Debug.Log("ok");
+            //heavyBreathing.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+
+
+        }
         //player got caught
         if (enemy.GetComponent<Enemy>().PlayerEnemyDistance < 3f)
         {
@@ -93,5 +103,11 @@ public class AudioManager : MonoBehaviour
 
 
         }
+    }
+    public void startSound(FMOD.Studio.EventInstance soundInstance)
+    {
+        soundInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(player.transform));
+        RuntimeManager.AttachInstanceToGameObject(soundInstance, player.transform);
+        soundInstance.start();
     }
 }

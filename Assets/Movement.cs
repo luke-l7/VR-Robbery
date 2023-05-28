@@ -98,9 +98,7 @@ public class Movement : MonoBehaviour
         }
         else
         {
-            Debug.Log("here");
             moving = true;
-            //footsteps.start();
             TriggerWalkingSound();
 
         }
