@@ -1,3 +1,5 @@
+using FMOD.Studio;
+using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Animations;
@@ -10,7 +12,10 @@ public enum Area
 }
 public class Movement : MonoBehaviour
 {
-    
+
+    EventInstance footsteps;
+    bool playSound =true;
+
     public Area area = Area.start;
     public bool hasObject;
     //public GameObject skeleton;
@@ -41,8 +46,11 @@ public class Movement : MonoBehaviour
 
     void Start()
     {
-        //anim = skeleton.GetComponent<Animator>();
-        //anim= GetComponent<Animator>();
+        //footsteps
+        footsteps = RuntimeManager.CreateInstance("event:/Sound FX Relaxed/Walking Sound effect");
+        footsteps.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform));
+        RuntimeManager.AttachInstanceToGameObject(footsteps, transform);
+
         hasObject = false;
         controller = GetComponent<CharacterController>();
 
@@ -85,14 +93,15 @@ public class Movement : MonoBehaviour
         {
             // No movement
             moving= false;
-
+            footsteps.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            playSound = true;
         }
         else
         {
+            Debug.Log("here");
             moving = true;
-
-
-            //anim.SetBool("shouldWalk", true);
+            //footsteps.start();
+            TriggerWalkingSound();
 
         }
 
@@ -128,5 +137,13 @@ public class Movement : MonoBehaviour
         {
             this.area = Area.enemyArea;
         }
+    }
+    public void TriggerWalkingSound()
+    {
+        if (playSound)
+        {
+            footsteps.start();
+        }
+        playSound = false;
     }
 }

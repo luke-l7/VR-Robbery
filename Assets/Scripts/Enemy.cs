@@ -163,7 +163,7 @@ public class Enemy : MonoBehaviour
     {
         if (playSound)
         {
-            RuntimeManager.PlayOneShot("event:/Guard/Yawn", player.transform.position);
+            RuntimeManager.PlayOneShot("event:/Guard/Yawn", transform.position);
         }
         playSound = false;
     }

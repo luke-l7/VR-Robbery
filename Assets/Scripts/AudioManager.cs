@@ -17,33 +17,20 @@ public class AudioManager : MonoBehaviour
     public GameObject enemy;
     public GameObject player;
 
-    FMOD.Studio.EventInstance gameCalmAmbience;
-    FMOD.Studio.EventInstance chaseMusic;
-    FMOD.Studio.EventInstance stressedMusic;
-    FMOD.Studio.EventInstance gameOverSound;
     FMOD.Studio.EventInstance music;
-
-    FMOD.Studio.EventInstance[] shuffledMusic;
-    EventInstance currentMusic;
 
     public EnemyState enemyState;
 
     // Start is called before the first frame update
     void Start()
     {
-
         music = RuntimeManager.CreateInstance("event:/Music/Music");
         music.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(player.transform));
         RuntimeManager.AttachInstanceToGameObject(music, transform);
-        //gameCalmAmbience = FMODUnity.RuntimeManager.CreateInstance("event:/ambience 2d");
-        //chaseMusic = FMODUnity.RuntimeManager.CreateInstance("event:/chase");
-        //stressedMusic = FMODUnity.RuntimeManager.CreateInstance("event:/Stressed");
-        //gameOverSound = RuntimeManager.CreateInstance("event:/Fail");
-        //shuffledMusic = new EventInstance[3] { gameCalmAmbience, chaseMusic, stressedMusic };
+
         enemyState = EnemyState.unaware;
-        //currentMusic = shuffledMusic[0];
-        //currentMusic.start();
-        music.start();
+
+        //music.start();
 
 
     }
@@ -58,10 +45,6 @@ public class AudioManager : MonoBehaviour
         if (enemy.GetComponent<Enemy>().canSeePlayer && enemyState != EnemyState.chase){
             music.setParameterByName("Guard Chase", 1);
             
-            //enemyState = EnemyState.chase;
-            //currentMusic.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-            //currentMusic = shuffledMusic[1];
-            //currentMusic.start();
 
 
         }
@@ -72,10 +55,7 @@ public class AudioManager : MonoBehaviour
             //RuntimeManager.PlayOneShot("event:/Guard/Yawn", transform.position);
 
             music.setParameterByName("NEAR ITEM", 1);
-            //enemyState = EnemyState.closeBy;
-            //currentMusic.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-            //currentMusic = shuffledMusic[2];
-            //currentMusic.start();
+
             
 
         }
@@ -85,10 +65,6 @@ public class AudioManager : MonoBehaviour
             music.setParameterByName("NEAR ITEM", 0);
             music.setParameterByName("Guard Chase", 0);
             music.setParameterByName("gotAway", 1);
-            //enemyState = EnemyState.unaware;
-            //currentMusic.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-            //currentMusic = shuffledMusic[0];
-            //currentMusic.start();
 
 
 
@@ -113,8 +89,6 @@ public class AudioManager : MonoBehaviour
             Debug.Log("i caught you");
             music.setParameterByName("Health", 0);
             
-            //currentMusic.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-            //gameOverSound.start();
             SceneManager.LoadScene(1);
 
 
