@@ -27,12 +27,11 @@ public class animationTransition : MonoBehaviour
             anim.SetBool("move", true);
 
         }
-        
-        //else if (es == EnemyState.chase)//moving chase
-        //{
-        //    anim.SetBool("shouldRun", true);
 
-        //}
-        
+        else if (es == EnemyState.chase)//moving chase
+        {
+            anim.SetBool("run", true);
+        }
+
     }
 }
