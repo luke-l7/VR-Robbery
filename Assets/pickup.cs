@@ -1,3 +1,4 @@
+using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class pickup : MonoBehaviour
 {
     public GameObject EscapePoint;
+    bool playPickupSound = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,8 +28,25 @@ public class pickup : MonoBehaviour
         {
             other.GetComponent<Movement>().hasObject= true;
             this.transform.parent = other.transform;
-
+            TriggerPickupSound();
+            playPickupSound= false;
         }
         
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            //playPickupSound= true;
+
+        }
+    }
+    public void TriggerPickupSound()
+    {
+        if (playPickupSound)
+        {
+            RuntimeManager.PlayOneShot("event:/Ambient/Item Steal", transform.position);
+        }
+        playPickupSound = false;
     }
 }
