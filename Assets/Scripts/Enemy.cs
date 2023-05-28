@@ -13,8 +13,7 @@ public class Enemy : MonoBehaviour
     private Animator anim;
     public float radius;
     public string yawn;
-
-
+    bool playSound = true;
 
     //waypoints
     public Transform[] waypoints;
@@ -35,7 +34,6 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         PlayerEnemyDistance = Vector3.Distance(player.transform.position, transform.position);
-
         anim = GetComponent<Animator>();
         enemyAgent = GetComponent<NavMeshAgent>();
         StartCoroutine(FOVRoutine());
@@ -55,7 +53,9 @@ public class Enemy : MonoBehaviour
             //rest
             if (waypoints[wayPointIndex] == monetorWaypoint.transform && shouldRest)
             {
-                RuntimeManager.PlayOneShot(yawn);
+
+                TriggerSound();
+                
                 anim.SetBool("patrol", false);
                 anim.SetBool("rest", true);
                 //stop for 3 seconds, cant see
@@ -94,11 +94,13 @@ public class Enemy : MonoBehaviour
         {
             wayPointIndex = 0;
             shouldRest= true;
+            playSound = true;
         }
     }
     private IEnumerator monitorRest()
     {
         yield return new WaitForSeconds(5);
+
         shouldRest = false;
 
     }
@@ -155,5 +157,14 @@ public class Enemy : MonoBehaviour
         {
             canSeePlayer= false;
         }
+    }
+
+    public void TriggerSound()
+    {
+        if (playSound)
+        {
+            RuntimeManager.PlayOneShot("event:/Guard/Yawn", player.transform.position);
+        }
+        playSound = false;
     }
 }

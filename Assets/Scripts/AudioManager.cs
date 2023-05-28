@@ -16,6 +16,7 @@ public class AudioManager : MonoBehaviour
     Animator anim;
     public GameObject enemy;
     public GameObject player;
+
     FMOD.Studio.EventInstance gameCalmAmbience;
     FMOD.Studio.EventInstance chaseMusic;
     FMOD.Studio.EventInstance stressedMusic;
@@ -30,7 +31,7 @@ public class AudioManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //anim = GetComponent<Animator>();
+
         music = RuntimeManager.CreateInstance("event:/Music/Music");
         music.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(player.transform));
         RuntimeManager.AttachInstanceToGameObject(music, transform);
@@ -44,13 +45,16 @@ public class AudioManager : MonoBehaviour
         //currentMusic.start();
         music.start();
 
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(enemy.GetComponent<Enemy>().PlayerEnemyDistance);
-       //enemy sees player
+        //Debug.Log(enemy.GetComponent<Enemy>().PlayerEnemyDistance);
+        //if (enemy.GetComponent<Enemy>().resting)
+
+        //enemy sees player
         if (enemy.GetComponent<Enemy>().canSeePlayer && enemyState != EnemyState.chase){
             music.setParameterByName("Guard Chase", 1);
             
@@ -64,6 +68,9 @@ public class AudioManager : MonoBehaviour
         //player in enemy vicinity 
         else if (enemyState != EnemyState.closeBy && !enemy.GetComponent<Enemy>().canSeePlayer && enemy.GetComponent<Enemy>().PlayerEnemyDistance < 18f)
         {
+
+            //RuntimeManager.PlayOneShot("event:/Guard/Yawn", transform.position);
+
             music.setParameterByName("NEAR ITEM", 1);
             //enemyState = EnemyState.closeBy;
             //currentMusic.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
