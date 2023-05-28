@@ -15,6 +15,7 @@ public class Movement : MonoBehaviour
 
     EventInstance footsteps;
     bool playSound =true;
+    bool playDoorSound = true;
 
     public Area area = Area.start;
     public bool hasObject;
@@ -134,7 +135,21 @@ public class Movement : MonoBehaviour
         else if (other.CompareTag("enemyAreaDoor"))
         {
             this.area = Area.enemyArea;
+            TriggerDoorSound();
         }
+        else if (other.CompareTag("door"))
+        {
+            TriggerDoorSound();
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("hallwayDoor") || other.CompareTag("enemyAreaDoor") || other.CompareTag("door"))
+        {
+            playDoorSound = true;
+
+        }
+        
     }
     public void TriggerWalkingSound()
     {
@@ -143,5 +158,13 @@ public class Movement : MonoBehaviour
             footsteps.start();
         }
         playSound = false;
+    }
+    public void TriggerDoorSound()
+    {
+        if (playDoorSound)
+        {
+            RuntimeManager.PlayOneShot("event:/Ambient/Room passing", transform.position);
+        }
+        playDoorSound = false;
     }
 }
