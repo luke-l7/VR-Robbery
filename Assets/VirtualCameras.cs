@@ -31,8 +31,8 @@ public class VirtualCameras : MonoBehaviour
 
         //music.start();
 
-        startCamera.Priority = 0;
-        outsideCamera.Priority = 1;
+        startCamera.Priority = 1;
+        outsideCamera.Priority = 0;
         followCamera.Priority = 0;
         hallwayCamera.Priority = 0;
         EnemyAreaCamera.Priority = 0;
@@ -40,7 +40,7 @@ public class VirtualCameras : MonoBehaviour
         outsideCamera2.Priority = 0;
         hallwayCamera.enabled = false;
         EnemyCamera.Priority = 0;
-        StartCoroutine(WaitForOutsideSeconds());
+        //StartCoroutine(WaitForOutsideSeconds());
 
     }
 
@@ -50,6 +50,7 @@ public class VirtualCameras : MonoBehaviour
 
         if (player.GetComponent<Movement>().area == Area.hallway)
         {
+            Debug.Log("here");
             hallwayCamera.enabled = true;
 
             startCamera.Priority = 0;

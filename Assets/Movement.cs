@@ -130,6 +130,7 @@ public class Movement : MonoBehaviour
         }
         else if (other.CompareTag("hallwayDoor"))
         {
+            Debug.Log("ok");
             this.area = Area.hallway;
         }
         else if (other.CompareTag("enemyAreaDoor"))

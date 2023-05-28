@@ -8,6 +8,8 @@ public class pickup : MonoBehaviour
 {
     public GameObject EscapePoint;
     bool playPickupSound = true;
+    FMOD.Studio.EventInstance alarmSound;
+    public bool alarmOff;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,7 +48,20 @@ public class pickup : MonoBehaviour
         if (playPickupSound)
         {
             RuntimeManager.PlayOneShot("event:/Ambient/Item Steal", transform.position);
+            alarmSound = RuntimeManager.CreateInstance("event:/Guard/alarm2");
+            alarmSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform));
+            RuntimeManager.AttachInstanceToGameObject(alarmSound, transform);
+            alarmSound.start();
+            alarmOff = true;
         }
         playPickupSound = false;
     }
+    //private IEnumerator alarmTimeout()
+    //{
+    //    yield return new WaitForSeconds(2f);
+    //    alarmSound = RuntimeManager.CreateInstance("event:/Guard/alarm2");
+    //    alarmSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform));
+    //    RuntimeManager.AttachInstanceToGameObject(alarmSound, transform);
+    //    alarmSound.start();
+    //}
 }

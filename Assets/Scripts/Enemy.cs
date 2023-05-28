@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     public string yawn;
     bool playSound = true;
     bool playSeeSound = true;
+    bool playHearSound = true;
     //waypoints
     public Transform[] waypoints;
     int wayPointIndex;
@@ -30,12 +31,14 @@ public class Enemy : MonoBehaviour
     public float PlayerEnemyDistance;
     public LayerMask targetMask;
     public LayerMask obstructionMask;
+    public GameObject pickup;
     // Start is called before the first frame update
     void Start()
     {
         PlayerEnemyDistance = Vector3.Distance(player.transform.position, transform.position);
         anim = GetComponent<Animator>();
         enemyAgent = GetComponent<NavMeshAgent>();
+        enemyAgent.speed = 0.05f;
         StartCoroutine(FOVRoutine());
     }
 
@@ -122,11 +125,13 @@ public class Enemy : MonoBehaviour
             //Debug.Log(PlayerEnemyDistance);
         Collider[] rangeChecks = Physics.OverlapSphere(transform.position, radius, targetMask);
         //can hear player
-        if (Vector3.Distance(player.transform.position, transform.position) < radius - 2)
+        if ((!canSeePlayer & Vector3.Distance(player.transform.position, transform.position) < radius - 2)  || pickup.GetComponent<pickup>().alarmOff)
         {
             //Debug.Log("i see you");
             canSeePlayer = true;
             this.transform.LookAt(player.transform.position);
+            TriggerHearSound();
+
 
         }
         else if (rangeChecks.Length != 0 ) {
@@ -135,7 +140,7 @@ public class Enemy : MonoBehaviour
             Vector3 dirToTarget = (target.position - transform.position).normalized;
             float distanceToTarget = Vector3.Distance(transform.position, player.transform.position);
             
-            if (Vector3.Angle(transform.forward, dirToTarget) < angle / 2)
+            if (!pickup.GetComponent<pickup>().alarmOff && Vector3.Angle(transform.forward, dirToTarget) < angle / 2 )
             {
                 //can see player 
                 if(!Physics.Raycast(transform.position, dirToTarget, distanceToTarget, obstructionMask))
@@ -149,17 +154,21 @@ public class Enemy : MonoBehaviour
                 {
                     canSeePlayer = false;
                     playSeeSound = true;
-
+                    playHearSound= false;
                 }
             }
             
-            else
+            else if(!pickup.GetComponent<pickup>().alarmOff)
                 canSeePlayer = false;
         }
         
         else if(canSeePlayer) 
         {
             canSeePlayer= false;
+            playHearSound = true;
+            playSeeSound = true;
+
+
         }
     }
 
@@ -180,6 +189,17 @@ public class Enemy : MonoBehaviour
 
         }
         playSeeSound = false;
+        playHearSound= false;
+    }
+
+    public void TriggerHearSound()
+    {
+        if (playHearSound)
+        {
+            RuntimeManager.PlayOneShot("event:/Guard/Whos there", transform.position);
+
+        }
+        playHearSound = false;
     }
 
 }
