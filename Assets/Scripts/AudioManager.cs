@@ -4,6 +4,8 @@ using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
 using UnityEngine.SceneManagement;
+using Cinemachine;
+
 public enum EnemyState
 {
     unaware,
@@ -16,27 +18,28 @@ public class AudioManager : MonoBehaviour
     Animator anim;
     public GameObject enemy;
     public GameObject player;
-
     FMOD.Studio.EventInstance music;
     FMOD.Studio.EventInstance heavyBreathing;
-    bool playBreath=true;
+    StudioEventEmitter eventEmitter;
+    bool playBreath =true;
+
 
     public EnemyState enemyState;
 
     // Start is called before the first frame update
     void Start()
     {
+        eventEmitter = GetComponent<StudioEventEmitter>();
+        eventEmitter.SetParameter("Min Distance", 0f);
+        eventEmitter.SetParameter("Max Distance", float.MaxValue);
         music = RuntimeManager.CreateInstance("event:/Music/Music");
-        //music.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(player.transform));
-        //RuntimeManager.AttachInstanceToGameObject(music, transform);
+        music.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(player.transform));
+        RuntimeManager.AttachInstanceToGameObject(music, player.transform);
 
-        startSound(music);   
-        //heavyBreathing = RuntimeManager.CreateInstance("event:/Sound FX Stressed/Breathing 1");
-        //heavyBreathing.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(player.transform));
-        //RuntimeManager.AttachInstanceToGameObject(heavyBreathing, player.transform);
+
         enemyState = EnemyState.unaware;
 
-        //music.start();
+        music.start();
         //heavyBreathing.start();
 
     }

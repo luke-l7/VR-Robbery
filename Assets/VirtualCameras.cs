@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using FMODUnity;
+
 public class VirtualCameras : MonoBehaviour
 {
     public GameObject player;
@@ -12,11 +14,22 @@ public class VirtualCameras : MonoBehaviour
     public CinemachineVirtualCamera hallwayCamera;
     public CinemachineVirtualCamera EnemyAreaCamera;
     public CinemachineVirtualCamera ItemCamera;
+    //FMOD.Studio.EventInstance music;
+    //CinemachineVirtualCamera activeCamera;
+
     //public CinemachineVirtualCamera EnemyCamera;
     public CinemachineFreeLook EnemyCamera;
     // Start is called before the first frame update
     void Start()
     {
+        //activeCamera = outsideCamera;
+        //music = RuntimeManager.CreateInstance("event:/Music/Music");
+        //music.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(activeCamera.transform));
+        //RuntimeManager.AttachInstanceToGameObject(music, activeCamera.transform);
+        
+        //music.start();
+
+
         outsideCamera.Priority = 1;
         followCamera.Priority = 0;
         hallwayCamera.Priority = 0;
@@ -44,6 +57,7 @@ public class VirtualCameras : MonoBehaviour
     IEnumerator WaitForOutsideSeconds()
     {
         yield return new WaitForSeconds(4f);
+
         outsideCamera.Priority = 0;
         outsideCamera2.Priority = 1;
         StartCoroutine(WaitForOutside2Seconds());

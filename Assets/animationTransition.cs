@@ -19,20 +19,20 @@ public class animationTransition : MonoBehaviour
         EnemyState es = player.GetComponent<AudioManager>().enemyState;
         if (!Movement.moving) // moving no chase
         {
-            anim.SetBool("shouldStop", true);
+            anim.SetBool("move", false);
 
         }
         else if ( es != EnemyState.chase) // moving no chase
         {
-            anim.SetBool("shouldWalk", true);
+            anim.SetBool("move", true);
 
         }
         
-        else if (es == EnemyState.chase)//moving chase
-        {
-            anim.SetBool("shouldRun", true);
+        //else if (es == EnemyState.chase)//moving chase
+        //{
+        //    anim.SetBool("shouldRun", true);
 
-        }
+        //}
         
     }
 }
