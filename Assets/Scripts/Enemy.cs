@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     public float radius;
     public string yawn;
     bool playSound = true;
-
+    bool playSeeSound = true;
     //waypoints
     public Transform[] waypoints;
     int wayPointIndex;
@@ -127,6 +127,7 @@ public class Enemy : MonoBehaviour
             //Debug.Log("i see you");
             canSeePlayer = true;
             this.transform.LookAt(player.transform.position);
+
         }
         else if (rangeChecks.Length != 0 ) {
             //only the player is in the array
@@ -141,10 +142,13 @@ public class Enemy : MonoBehaviour
                 {
                     Debug.Log(canSeePlayer);
                     canSeePlayer = true;
+                    TriggerSeeSound();
+
                 }
                 else
                 {
                     canSeePlayer = false;
+                    playSeeSound = true;
 
                 }
             }
@@ -167,4 +171,15 @@ public class Enemy : MonoBehaviour
         }
         playSound = false;
     }
+
+    public void TriggerSeeSound()
+    {
+        if (playSeeSound)
+        {
+            RuntimeManager.PlayOneShot("event:/Guard/Im gonna get you", transform.position);
+
+        }
+        playSeeSound = false;
+    }
+
 }

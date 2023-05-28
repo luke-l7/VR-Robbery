@@ -14,6 +14,8 @@ public class VirtualCameras : MonoBehaviour
     public CinemachineVirtualCamera hallwayCamera;
     public CinemachineVirtualCamera EnemyAreaCamera;
     public CinemachineVirtualCamera ItemCamera;
+    public CinemachineVirtualCamera startCamera;
+
     //FMOD.Studio.EventInstance music;
     //CinemachineVirtualCamera activeCamera;
 
@@ -26,10 +28,10 @@ public class VirtualCameras : MonoBehaviour
         //music = RuntimeManager.CreateInstance("event:/Music/Music");
         //music.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(activeCamera.transform));
         //RuntimeManager.AttachInstanceToGameObject(music, activeCamera.transform);
-        
+
         //music.start();
 
-
+        startCamera.Priority = 0;
         outsideCamera.Priority = 1;
         followCamera.Priority = 0;
         hallwayCamera.Priority = 0;
@@ -45,13 +47,21 @@ public class VirtualCameras : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (player.GetComponent<Movement>().area == Area.hallway)
         {
             hallwayCamera.enabled = true;
 
-            followCamera.Priority = 0;
+            startCamera.Priority = 0;
             hallwayCamera.Priority = 1;
         }
+        else if (player.GetComponent<Movement>().area == Area.enemyArea)
+        {
+            hallwayCamera.Priority = 0;
+            hallwayCamera.enabled = false;
+            followCamera.Priority = 1;
+        }
+
 
     }
     IEnumerator WaitForOutsideSeconds()
@@ -77,7 +87,7 @@ public class VirtualCameras : MonoBehaviour
     {
         yield return new WaitForSeconds(12f);
         outsideCamera2.Priority = 0;
-        followCamera.Priority = 1;
+        startCamera.Priority = 1;
 
 
     }

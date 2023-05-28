@@ -20,7 +20,8 @@ public class AudioManager : MonoBehaviour
     public GameObject player;
     FMOD.Studio.EventInstance music;
     FMOD.Studio.EventInstance heavyBreathing;
-    StudioEventEmitter eventEmitter;
+
+    //StudioEventEmitter eventEmitter;
     bool playBreath =true;
 
 
@@ -29,9 +30,9 @@ public class AudioManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        eventEmitter = GetComponent<StudioEventEmitter>();
-        eventEmitter.SetParameter("Min Distance", 0f);
-        eventEmitter.SetParameter("Max Distance", float.MaxValue);
+        //eventEmitter = GetComponent<StudioEventEmitter>();
+        //eventEmitter.SetParameter("Min Distance", 0f);
+        //eventEmitter.SetParameter("Max Distance", float.MaxValue);
         music = RuntimeManager.CreateInstance("event:/Music/Music");
         music.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(player.transform));
         RuntimeManager.AttachInstanceToGameObject(music, player.transform);
@@ -58,7 +59,7 @@ public class AudioManager : MonoBehaviour
 
         }
         //player in enemy vicinity 
-        else if (enemyState != EnemyState.closeBy && !enemy.GetComponent<Enemy>().canSeePlayer && enemy.GetComponent<Enemy>().PlayerEnemyDistance < 18f)
+        else if (enemyState != EnemyState.closeBy && !enemy.GetComponent<Enemy>().canSeePlayer && enemy.GetComponent<Enemy>().PlayerEnemyDistance < 22f)
         {
 
             //RuntimeManager.PlayOneShot("event:/Guard/Yawn", transform.position);
@@ -84,7 +85,7 @@ public class AudioManager : MonoBehaviour
 
         //}
 
-        else if (enemyState != EnemyState.unaware && !enemy.GetComponent<Enemy>().canSeePlayer && enemy.GetComponent<Enemy>().PlayerEnemyDistance > 18f)
+        else if (enemyState != EnemyState.unaware && !enemy.GetComponent<Enemy>().canSeePlayer && enemy.GetComponent<Enemy>().PlayerEnemyDistance > 22f)
         {
             //music.setParameterByName("NEAR ITEM", 0);
             //music.setParameterByName("Guard Chase", 0);
